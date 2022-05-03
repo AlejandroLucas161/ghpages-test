@@ -5,27 +5,33 @@ import ItemList from '../ItemList/ItemList';
 import spinner from '../../assets/spinner/spinner.svg';
 
 import './ItemListContainer.styles.css'
+import { useParams } from 'react-router-dom';
 
 const ItemListContainer = () => {
+  const { categoryId } = useParams();
+  console.log(categoryId);
+
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const getItems = () => (
-    new Promise((resolve, reject) => {
+  const getItems = (categoryId) => {
+    setIsLoading(true);
+
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(itemsMock)
+        resolve(categoryId ? itemsMock.filter(item => item.category === categoryId) : itemsMock)
       }, 2000)
     })
-  )
+  }
 
   useEffect(() => {
-    getItems()
+    getItems(categoryId)
       .then(res => {
         setItems(res)
         setIsLoading(false)
       })
       .catch(err => console.log(err))
-  }, [])
+  }, [categoryId])
 
   return (
     <div className='item__list-container'>

@@ -1,38 +1,55 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import itemsMock from '../../data/itemsMock.json';
 import ItemDetail from '../ItemDetail/ItemDetail';
+import spinner from '../../assets/spinner/spinner.svg';
 
 import './ItemDetailContainer.styles.css';
 
 const ItemDetailContainer = () => {
-  const [item, setItem] = useState(null);
+  const { id } = useParams();
+  const [item, setItem] = useState({});
+  const [isLoading, setIsLoading] = useState(true)
 
-  const onAdd = (count, stock) => {
-    if (stock === 0) return alert(`No tenemos stock en estos momentos, vuelve en unos días.`);
+  const getItem = (id) => {
+    setIsLoading(true);
 
-    return alert(`${count} ${count === 1 ? 'Producto agregado' : 'Productos agregados'} al carrito!`);
-  };
-
-  const getItem = () => (
-    new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(itemsMock[0])
-      }, 2000)
+    return new Promise((resolve, reject) => {
+      setTimeout(() => resolve(itemsMock.find(item => item.id === id)), 2000)
     })
-  )
+  }
 
   useEffect(() => {
-    getItem()
-      .then(res => setItem(res))
+    getItem(+id)
+      .then(res => {
+        setItem(res)
+        setIsLoading(false)
+      })
       .catch(err => console.log(err))
-  }, [])
+  }, [id])
 
   console.log(item);
 
+  // {
+  //   isLoading ? (
+  //     <div className='spinner-container'>
+  //       <img src={spinner} alt="Loading spinner" />
+  //     </div>
+  //   ) : (
+  //     <div className='item-detail-container'>
+  //       <ItemDetail item={item} />
+  //     </div>
+  //   )
+  // }
+
   return (
-    item && (
+    isLoading ? (
+      <div className='spinner-container'>
+        <img src={spinner} alt="Loading spinner" />
+      </div>
+    ) : (
       <div className='item-detail-container'>
-        <ItemDetail item={item} onAdd={onAdd} />
+        <ItemDetail item={item} />
       </div>
     )
   )
