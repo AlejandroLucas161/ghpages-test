@@ -16,19 +16,19 @@ const NavBar = () => {
 
         <ul className='navbar__list'>
           <li className='navbar__list-item'>
-            <NavLink to={''} className={({ isActive }) => isActive ? 'active-link' : undefined}>
+            <NavLink to={'/'} className={({ isActive }) => isActive ? 'active-link' : undefined}>
               <span>Inicio</span>
             </NavLink>
           </li>
 
           <li className='navbar__list-item'>
-            <NavLink to={'/category/adultos'} className={({ isActive }) => isActive ? 'active-link' : undefined}>
+            <NavLink to={'/category/adults'} className={({ isActive }) => isActive ? 'active-link' : undefined}>
               <span>Adultos</span>
             </NavLink>
           </li>
 
           <li className='navbar__list-item'>
-            <NavLink to={'/category/niños'} className={({ isActive }) => isActive ? 'active-link' : undefined}>
+            <NavLink to={'/category/kids'} className={({ isActive }) => isActive ? 'active-link' : undefined}>
               <span>Niños</span>
             </NavLink>
           </li>

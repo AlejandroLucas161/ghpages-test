@@ -1,7 +1,7 @@
 import NavBar from './components/NavBar/NavBar';
 import itemsMock from './data/itemsMock.json'
-import ItemListContainer from './components/ItemListContainer/ItemListContainer';
-import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
+import ItemListContainer from './pages/ItemListContainer/ItemListContainer';
+import ItemDetailContainer from './pages/ItemDetailContainer/ItemDetailContainer';
 
 import { Routes, Route } from 'react-router-dom';
 
